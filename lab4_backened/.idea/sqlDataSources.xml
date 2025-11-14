@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="95b63557-d099-400f-9b44-ab95ab689082" name="DDL Mapping">
+      <scope>
+        <node kind="database" negative="1" />
+      </scope>
+    </mapping>
+    <mapping uuid="a878da38-99f1-4096-9711-1ec2ed0d89e2" name="XiaoZhongDianPing@localhost Mapping">
+      <data-sources db="4782d25f-21d7-4e9e-8454-0fdf5065f45b" ddl="d3b9bc6d-ecea-4fa8-a265-b06107f17c1e" />
+      <scope>
+        <node kind="schema" qname="xiaozhongdianping" />
+      </scope>
+    </mapping>
+  </component>
+</project>
