@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小众点评项目 - 后端开发</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", "SimSun", Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+            margin-top: 25px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 20px;
+        }
+        .repo-link {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .repo-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .repo-link a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>小众点评项目 - 后端开发</h1>
+    
+    <div class="repo-link">
+        <strong>项目仓库：</strong>
+        <a href="https://github.com/LiQianqian177/XiaoZhongDianPing" target="_blank">
+            https://github.com/LiQianqian177/XiaoZhongDianPing
+        </a>
+    </div>
+
+    <h2>项目概述</h2>
+    <p>小众点评是一个本地生活服务平台，类似于大众点评，为用户提供商家搜索、团购购买、订单管理、支付处理等核心功能。项目采用前后端分离架构，我负责后端系统的设计与开发。</p>
+
+    <h2>技术栈</h2>
+    <ul>
+        <li><strong>框架</strong>: Spring Boot 3.4.3</li>
+        <li><strong>数据库</strong>: MySQL + Spring Data JPA</li>
+        <li><strong>缓存</strong>: Redis (用于验证码存储、会话管理)</li>
+        <li><strong>认证</strong>: JWT Token (基于 Auth0 java-jwt 和 io.jsonwebtoken)</li>
+        <li><strong>工具库</strong>: 
+            <ul>
+                <li>Kaptcha (图形验证码生成)</li>
+                <li>Pinyin4j (中文转拼音，支持商家搜索)</li>
+                <li>Liquibase (数据库版本管理)</li>
+                <li>Lombok (简化代码)</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>核心功能模块</h2>
+
+    <h3>1. 用户认证与授权系统</h3>
+    <ul>
+        <li><strong>用户注册</strong>: 实现用户名格式验证（4-20位字母数字下划线）、密码加密存储（BCrypt）、图形验证码校验</li>
+        <li><strong>用户登录</strong>: JWT Token 生成与验证、登录状态管理、Redis 会话存储</li>
+        <li><strong>安全机制</strong>: 
+            <ul>
+                <li>密码加密存储</li>
+                <li>JWT Filter 实现请求拦截与Token验证</li>
+                <li>验证码防刷机制</li>
+                <li>用户登录记录追踪</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>2. 商家管理系统</h3>
+    <ul>
+        <li><strong>商家搜索</strong>: 支持多关键词搜索，基于中文转拼音实现模糊匹配</li>
+        <li><strong>商家过滤</strong>: 实现按地区、类别、评分等多维度过滤</li>
+        <li><strong>商家排序</strong>: 支持按评分、距离、销量等多种排序方式</li>
+        <li><strong>商家详情</strong>: 商家信息查询、商家图片管理</li>
+    </ul>
+
+    <h3>3. 团购管理系统</h3>
+    <ul>
+        <li><strong>团购查询</strong>: 根据商家ID查询团购列表</li>
+        <li><strong>团购详情</strong>: 团购信息、套餐内容、价格等详细信息查询</li>
+    </ul>
+
+    <h3>4. 订单管理系统</h3>
+    <ul>
+        <li><strong>订单创建</strong>: 
+            <ul>
+                <li>支持团购订单创建</li>
+                <li>自动生成16位券码</li>
+                <li>订单状态管理（待支付、已支付、已使用等）</li>
+                <li>订单项管理</li>
+            </ul>
+        </li>
+        <li><strong>订单查询</strong>: 
+            <ul>
+                <li>用户历史订单查询</li>
+                <li>订单详情查询（包含券码、商家信息、团购信息）</li>
+            </ul>
+        </li>
+        <li><strong>订单事件</strong>: 基于Spring事件机制实现订单支付后的优惠券自动核销、团购状态更新</li>
+    </ul>
+
+    <h3>5. 支付系统</h3>
+    <ul>
+        <li><strong>支付流程</strong>: 创建支付单 → 处理支付 → 完成支付/失败处理</li>
+        <li><strong>支付状态管理</strong>: 支持待支付、处理中、已完成、已失败、已取消等多种状态</li>
+        <li><strong>支付查询</strong>: 支持按支付单号、订单号、支付状态查询</li>
+    </ul>
+
+    <h3>6. 优惠券系统<span class="highlight">（核心亮点）</span></h3>
+    <ul>
+        <li><strong>优惠券类型</strong>: 支持满减券、折扣券、固定金额券等多种类型</li>
+        <li><strong>优惠券策略模式</strong>: 
+            <ul>
+                <li>使用策略模式实现不同优惠券类型的计算逻辑</li>
+                <li>FixedAmountCouponStrategy (固定金额)</li>
+                <li>FixedToAmountCouponStrategy (满减)</li>
+                <li>PercentageCouponStrategy (折扣)</li>
+            </ul>
+        </li>
+        <li><strong>优惠券校验链</strong>: 
+            <ul>
+                <li>责任链模式实现优惠券使用条件校验</li>
+                <li>包括：过期检查、使用门槛检查、适用商家检查、适用类别检查等</li>
+            </ul>
+        </li>
+        <li><strong>优惠券管理</strong>: 
+            <ul>
+                <li>优惠券创建</li>
+                <li>用户领取优惠券</li>
+                <li>订单使用优惠券（自动计算优惠金额）</li>
+                <li>优惠券状态管理</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>技术亮点</h2>
+
+    <h3>1. 设计模式应用</h3>
+    <ul>
+        <li><strong>策略模式</strong>: 优惠券计算策略，支持灵活扩展新的优惠券类型</li>
+        <li><strong>责任链模式</strong>: 优惠券校验链，实现多条件校验的解耦</li>
+        <li><strong>事件驱动</strong>: Spring事件机制实现订单支付后的异步处理</li>
+    </ul>
+
+    <h3>2. 架构设计</h3>
+    <ul>
+        <li><strong>分层架构</strong>: Controller → Service → Repository 清晰的分层结构</li>
+        <li><strong>DTO模式</strong>: 使用DTO实现数据传输与实体解耦</li>
+        <li><strong>全局异常处理</strong>: 统一异常处理机制，包括业务异常、资源未找到异常等</li>
+        <li><strong>CORS配置</strong>: 支持跨域请求，便于前后端分离开发</li>
+    </ul>
+
+    <h3>3. 数据安全</h3>
+    <ul>
+        <li><strong>密码加密</strong>: BCrypt加密存储用户密码</li>
+        <li><strong>JWT认证</strong>: 无状态Token认证机制</li>
+        <li><strong>验证码机制</strong>: 图形验证码防止恶意注册</li>
+    </ul>
+
+    <h3>4. 性能优化</h3>
+    <ul>
+        <li><strong>Redis缓存</strong>: 验证码、会话信息缓存</li>
+        <li><strong>数据库优化</strong>: 使用JPA进行数据库操作，支持事务管理</li>
+        <li><strong>中文搜索优化</strong>: 通过拼音转换支持中文商家名称搜索</li>
+    </ul>
+
+    <h2>项目成果</h2>
+    <ul>
+        <li>完成了完整的后端API开发，提供30+个RESTful接口</li>
+        <li>实现了用户、商家、订单、支付、优惠券等核心业务模块</li>
+        <li>采用设计模式提升代码可维护性和扩展性</li>
+        <li>实现了安全的用户认证与授权机制</li>
+        <li>支持复杂的优惠券业务逻辑处理</li>
+    </ul>
+
+    <h2>个人贡献</h2>
+    <ul>
+        <li>负责后端系统的整体架构设计与实现</li>
+        <li>完成用户认证、商家管理、订单管理、支付处理等核心功能开发</li>
+        <li>设计并实现优惠券系统的策略模式和责任链模式</li>
+        <li>实现JWT认证机制和全局异常处理</li>
+        <li>优化数据库查询和缓存使用，提升系统性能</li>
+    </ul>
+
+    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; text-align: center; color: #777; font-size: 12px;">
+        <p>项目仓库：<a href="https://github.com/LiQianqian177/XiaoZhongDianPing" target="_blank">https://github.com/LiQianqian177/XiaoZhongDianPing</a></p>
+    </div>
+</body>
+</html>
+
